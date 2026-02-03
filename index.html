@@ -433,11 +433,11 @@
                             <label data-i18n="referringDepartment">Département référent</label>
                             <select name="referringDepartment">
                                 <option value="" data-i18n="select">Sélectionner...</option>
-                                <option value="Oncology">Oncologie</option>
-                                <option value="Pulmonology">Pneumologie</option>
-                                <option value="Endocrinology">Endocrinologie</option>
-                                <option value="Gastroenterology">Gastroentérologie</option>
-                                <option value="Other">Autre</option>
+                                <option value="Oncology" data-i18n="deptOncology">Oncologie</option>
+                                <option value="Pulmonology" data-i18n="deptPulmonology">Pneumologie</option>
+                                <option value="Endocrinology" data-i18n="deptEndocrinology">Endocrinologie</option>
+                                <option value="Gastroenterology" data-i18n="deptGastroenterology">Gastroentérologie</option>
+                                <option value="Other" data-i18n="deptOther">Autre</option>
                             </select>
                         </div>
                     </div>
@@ -449,22 +449,22 @@
                     <div class="form-grid">
                         <div class="checkbox-group">
                             <input type="checkbox" name="indication_mediastinalMass" id="ind1">
-                            <label for="ind1">Masse médiastinale</label>
+                            <label for="ind1" data-i18n="mediastinalMass">Masse médiastinale</label>
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" name="indication_lymphadenopathy" id="ind2">
-                            <label for="ind2">Lymphadénopathie</label>
+                            <label for="ind2" data-i18n="lymphadenopathy">Lymphadénopathie</label>
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" name="indication_thyroidNodule" id="ind3">
-                            <label for="ind3">Nodule thyroïdien</label>
+                            <label for="ind3" data-i18n="thyroidNodule">Nodule thyroïdien</label>
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" name="indication_adrenalLesion" id="ind4">
-                            <label for="ind4">Lésion surrénalienne</label>
+                            <label for="ind4" data-i18n="adrenalLesion">Lésion surrénalienne</label>
                         </div>
                         <div class="form-group">
-                            <label>Autre (préciser)</label>
+                            <label data-i18n="otherSpecify">Autre (préciser)</label>
                             <input type="text" name="indication_other">
                         </div>
                     </div>
@@ -475,43 +475,43 @@
                     <h3>📋 Antécédents Médicaux</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Antécédents de malignité</label>
+                            <label data-i18n="historyMalignancy">Antécédents de malignité</label>
                             <textarea name="historyMalignancy"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Troubles thyroïdiens</label>
+                            <label data-i18n="thyroidDisorders">Troubles thyroïdiens</label>
                             <textarea name="thyroidDisorders"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Maladies cardiopulmonaires</label>
+                            <label data-i18n="cardiopulmonary">Maladies cardiopulmonaires</label>
                             <textarea name="cardiopulmonary"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Antécédents d'infections</label>
+                            <label data-i18n="historyInfections">Antécédents d'infections</label>
                             <textarea name="historyInfections"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Autres comorbidités</label>
+                            <label data-i18n="otherComorbidities">Autres comorbidités</label>
                             <textarea name="otherComorbidities"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Antécédents chirurgicaux</label>
+                            <label data-i18n="surgicalHistory">Antécédents chirurgicaux</label>
                             <textarea name="surgicalHistory"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Substances addictives</label>
+                            <label data-i18n="addictiveSubstances">Substances addictives</label>
                             <textarea name="addictiveSubstances"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Allergies</label>
+                            <label data-i18n="allergies">Allergies</label>
                             <textarea name="allergies"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Antécédents familiaux de malignité</label>
+                            <label data-i18n="familyMalignancy">Antécédents familiaux de malignité</label>
                             <textarea name="familyMalignancy"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Affections héréditaires</label>
+                            <label data-i18n="hereditaryAffections">Affections héréditaires</label>
                             <textarea name="hereditaryAffections"></textarea>
                         </div>
                     </div>
@@ -522,131 +522,131 @@
                     <h3>🌡️ Signes Généraux</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Fièvre</label>
+                            <label data-i18n="fever">Fièvre</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="fever" value="Oui" id="fever-y">
-                                    <label for="fever-y">Oui</label>
+                                    <label for="fever-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="fever" value="Non" id="fever-n">
-                                    <label for="fever-n">Non</label>
+                                    <label for="fever-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Température (°C)</label>
+                            <label data-i18n="temperature">Température (°C)</label>
                             <input type="number" name="temperature" step="0.1">
                         </div>
                         <div class="form-group">
-                            <label>Perte de poids involontaire</label>
+                            <label data-i18n="weightLoss">Perte de poids involontaire</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="weightLoss" value="Oui" id="wl-y">
-                                    <label for="wl-y">Oui</label>
+                                    <label for="wl-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="weightLoss" value="Non" id="wl-n">
-                                    <label for="wl-n">Non</label>
+                                    <label for="wl-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Kg/temps</label>
+                            <label data-i18n="weightLossAmount">Kg/temps</label>
                             <input type="text" name="weightLossAmount">
                         </div>
                         <div class="form-group">
-                            <label>Asthénie</label>
+                            <label data-i18n="asthenia">Asthénie</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="asthenia" value="Oui" id="ast-y">
-                                    <label for="ast-y">Oui</label>
+                                    <label for="ast-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="asthenia" value="Non" id="ast-n">
-                                    <label for="ast-n">Non</label>
+                                    <label for="ast-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Anorexie</label>
+                            <label data-i18n="anorexia">Anorexie</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="anorexia" value="Oui" id="ano-y">
-                                    <label for="ano-y">Oui</label>
+                                    <label for="ano-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="anorexia" value="Non" id="ano-n">
-                                    <label for="ano-n">Non</label>
+                                    <label for="ano-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Sueurs nocturnes</label>
+                            <label data-i18n="nightSweats">Sueurs nocturnes</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="nightSweats" value="Oui" id="ns-y">
-                                    <label for="ns-y">Oui</label>
+                                    <label for="ns-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="nightSweats" value="Non" id="ns-n">
-                                    <label for="ns-n">Non</label>
+                                    <label for="ns-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Pâleur</label>
+                            <label data-i18n="pallor">Pâleur</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="pallor" value="Oui" id="pal-y">
-                                    <label for="pal-y">Oui</label>
+                                    <label for="pal-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="pallor" value="Non" id="pal-n">
-                                    <label for="pal-n">Non</label>
+                                    <label for="pal-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Œdème</label>
+                            <label data-i18n="edema">Œdème</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="edema" value="Oui" id="ed-y">
-                                    <label for="ed-y">Oui</label>
+                                    <label for="ed-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="edema" value="Non" id="ed-n">
-                                    <label for="ed-n">Non</label>
+                                    <label for="ed-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Caractère de l'œdème</label>
+                            <label data-i18n="edemaCharacter">Caractère de l'œdème</label>
                             <input type="text" name="edemaCharacter">
                         </div>
                         <div class="form-group">
-                            <label>Ictère</label>
+                            <label data-i18n="jaundice">Ictère</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="jaundice" value="Oui" id="jau-y">
-                                    <label for="jau-y">Oui</label>
+                                    <label for="jau-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="jaundice" value="Non" id="jau-n">
-                                    <label for="jau-n">Non</label>
+                                    <label for="jau-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>État général altéré</label>
+                            <label data-i18n="alteredCondition">État général altéré</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="alteredCondition" value="Oui" id="alt-y">
-                                    <label for="alt-y">Oui</label>
+                                    <label for="alt-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="alteredCondition" value="Non" id="alt-n">
-                                    <label for="alt-n">Non</label>
+                                    <label for="alt-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
@@ -658,43 +658,43 @@
                     <h3>🔍 Signes Fonctionnels</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Goitre/nodule</label>
+                            <label data-i18n="goitre">Goitre/nodule</label>
                             <input type="text" name="goitre">
                         </div>
                         <div class="form-group">
-                            <label>Dysphonie</label>
+                            <label data-i18n="dysphonia">Dysphonie</label>
                             <input type="text" name="dysphonia">
                         </div>
                         <div class="form-group">
-                            <label>Dysphagie</label>
+                            <label data-i18n="dysphagia">Dysphagie</label>
                             <input type="text" name="dysphagia">
                         </div>
                         <div class="form-group">
-                            <label>Douleur cervicale</label>
+                            <label data-i18n="neckPain">Douleur cervicale</label>
                             <input type="text" name="neckPain">
                         </div>
                         <div class="form-group">
-                            <label>Sensation de compression</label>
+                            <label data-i18n="compression">Sensation de compression</label>
                             <input type="text" name="compression">
                         </div>
                         <div class="form-group">
-                            <label>Toux chronique</label>
+                            <label data-i18n="chronicCough">Toux chronique</label>
                             <input type="text" name="chronicCough">
                         </div>
                         <div class="form-group">
-                            <label>Hémoptysie</label>
+                            <label data-i18n="hemoptysis">Hémoptysie</label>
                             <input type="text" name="hemoptysis">
                         </div>
                         <div class="form-group">
-                            <label>Dyspnée</label>
+                            <label data-i18n="dyspnea">Dyspnée</label>
                             <input type="text" name="dyspnea">
                         </div>
                         <div class="form-group">
-                            <label>Douleur thoracique</label>
+                            <label data-i18n="chestPain">Douleur thoracique</label>
                             <input type="text" name="chestPain">
                         </div>
                         <div class="form-group">
-                            <label>Enrouement</label>
+                            <label data-i18n="hoarseness">Enrouement</label>
                             <input type="text" name="hoarseness">
                         </div>
                     </div>
@@ -705,35 +705,35 @@
                     <h3>🔬 Investigations Avant EUS</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Biologie</label>
+                            <label data-i18n="biology">Biologie</label>
                             <textarea name="biology"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Marqueurs tumoraux</label>
+                            <label data-i18n="tumorMarkers">Marqueurs tumoraux</label>
                             <textarea name="tumorMarkers"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Radiographie</label>
+                            <label data-i18n="radiography">Radiographie</label>
                             <textarea name="radiography"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Échographie</label>
+                            <label data-i18n="ultrasound">Échographie</label>
                             <textarea name="ultrasound"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>CT-Scan</label>
+                            <label data-i18n="ctScan">CT-Scan</label>
                             <textarea name="ctScan"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>IRM</label>
+                            <label data-i18n="mri">IRM</label>
                             <textarea name="mri"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>PET-Scan</label>
+                            <label data-i18n="petScan">PET-Scan</label>
                             <textarea name="petScan"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>EBUS</label>
+                            <label data-i18n="ebus">EBUS</label>
                             <textarea name="ebus"></textarea>
                         </div>
                     </div>
@@ -744,29 +744,29 @@
                     <h3>📍 Résultats EUS</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Localisation de la lésion</label>
+                            <label data-i18n="lesionLocation">Localisation de la lésion</label>
                             <input type="text" name="lesionLocation">
                         </div>
                         <div class="form-group">
-                            <label>Taille (mm)</label>
+                            <label data-i18n="lesionSize">Taille (mm)</label>
                             <input type="number" name="lesionSize" step="0.1">
                         </div>
                         <div class="form-group">
-                            <label>Pattern échogénique</label>
+                            <label data-i18n="echogenicPattern">Pattern échogénique</label>
                             <select name="echogenicPattern">
-                                <option value="">Sélectionner...</option>
-                                <option value="Hypoéchoïque">Hypoéchoïque</option>
-                                <option value="Hyperéchoïque">Hyperéchoïque</option>
-                                <option value="Hétérogène">Hétérogène</option>
-                                <option value="Autre">Autre</option>
+                                <option value="" data-i18n="select">Sélectionner...</option>
+                                <option value="Hypoéchoïque" data-i18n="echogenicHypo">Hypoéchoïque</option>
+                                <option value="Hyperéchoïque" data-i18n="echogenicHyper">Hyperéchoïque</option>
+                                <option value="Hétérogène" data-i18n="echogenicHetero">Hétérogène</option>
+                                <option value="Autre" data-i18n="echogenicOther">Autre</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Risques anatomiques</label>
+                            <label data-i18n="anatomicalRisks">Risques anatomiques</label>
                             <textarea name="anatomicalRisks"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Vascularité (Doppler)</label>
+                            <label data-i18n="vascularity">Vascularité (Doppler)</label>
                             <input type="text" name="vascularity">
                         </div>
                     </div>
@@ -777,7 +777,7 @@
                     <h3>⚕️ Détails de la Procédure EUS</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Type d'endoscope</label>
+                            <label data-i18n="endoscopeType">Type d'endoscope</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="endoscopeType" value="Radial" id="endo-r">
@@ -790,7 +790,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Procédure</label>
+                            <label data-i18n="procedureType">Procédure</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="procedureType" value="FNA" id="proc-fna">
@@ -803,28 +803,28 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Approche</label>
+                            <label data-i18n="approach">Approche</label>
                             <select name="approach">
-                                <option value="">Sélectionner...</option>
-                                <option value="Esophageal">Œsophagienne</option>
-                                <option value="Gastric">Gastrique</option>
-                                <option value="Duodenal">Duodénale</option>
-                                <option value="Rectal">Rectale</option>
-                                <option value="Other">Autre</option>
+                                <option value="" data-i18n="select">Sélectionner...</option>
+                                <option value="Esophageal" data-i18n="appEsophageal">Œsophagienne</option>
+                                <option value="Gastric" data-i18n="appGastric">Gastrique</option>
+                                <option value="Duodenal" data-i18n="appDuodenal">Duodénale</option>
+                                <option value="Rectal" data-i18n="appRectal">Rectale</option>
+                                <option value="Other" data-i18n="appOther">Autre</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Station</label>
+                            <label data-i18n="station">Station</label>
                             <input type="text" name="station">
                         </div>
                         <div class="form-group">
-                            <label>Unique ou multiple</label>
+                            <label data-i18n="singleMultiple">Unique ou multiple</label>
                             <input type="text" name="singleMultiple">
                         </div>
                         <div class="form-group">
-                            <label>Type d'aiguille</label>
+                            <label data-i18n="needleType">Type d'aiguille</label>
                             <select name="needleType">
-                                <option value="">Sélectionner...</option>
+                                <option value="" data-i18n="select">Sélectionner...</option>
                                 <option value="Boston acquire">Boston acquire</option>
                                 <option value="Boston expect">Boston expect</option>
                                 <option value="EZ Shot 3">EZ Shot 3</option>
@@ -836,7 +836,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Calibre d'aiguille</label>
+                            <label data-i18n="needleGauge">Calibre d'aiguille</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="needleGauge" value="25G" id="ng-25">
@@ -853,71 +853,71 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Nombre de passages</label>
+                            <label data-i18n="numberOfPasses">Nombre de passages</label>
                             <input type="number" name="numberOfPasses" min="0">
                         </div>
                         <div class="form-group">
-                            <label>MOSE</label>
+                            <label data-i18n="mose">MOSE</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="mose" value="Oui" id="mose-y">
-                                    <label for="mose-y">Oui</label>
+                                    <label for="mose-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="mose" value="Non" id="mose-n">
-                                    <label for="mose-n">Non</label>
+                                    <label for="mose-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>ROSE</label>
+                            <label data-i18n="rose">ROSE</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="rose" value="Oui" id="rose-y">
-                                    <label for="rose-y">Oui</label>
+                                    <label for="rose-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="rose" value="Non" id="rose-n">
-                                    <label for="rose-n">Non</label>
+                                    <label for="rose-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Sédation/Anesthésie</label>
+                            <label data-i18n="sedation">Sédation/Anesthésie</label>
                             <input type="text" name="sedation">
                         </div>
                         <div class="form-group">
-                            <label>Prophylaxie antibiotique</label>
+                            <label data-i18n="antibioticProphylaxis">Prophylaxie antibiotique</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="antibioticProphylaxis" value="Oui" id="abx-y">
-                                    <label for="abx-y">Oui</label>
+                                    <label for="abx-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="antibioticProphylaxis" value="Non" id="abx-n">
-                                    <label for="abx-n">Non</label>
+                                    <label for="abx-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Type d'antibiotique</label>
+                            <label data-i18n="antibioticType">Type d'antibiotique</label>
                             <input type="text" name="antibioticType">
                         </div>
                         <div class="form-group">
-                            <label>Difficulté technique</label>
+                            <label data-i18n="technicalDifficulty">Difficulté technique</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="technicalDifficulty" value="Oui" id="diff-y">
-                                    <label for="diff-y">Oui</label>
+                                    <label for="diff-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="technicalDifficulty" value="Non" id="diff-n">
-                                    <label for="diff-n">Non</label>
+                                    <label for="diff-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Préciser la difficulté</label>
+                            <label data-i18n="technicalDifficultyDetails">Préciser la difficulté</label>
                             <input type="text" name="technicalDifficultyDetails">
                         </div>
                     </div>
@@ -928,61 +928,61 @@
                     <h3>🔬 Diagnostic et Résultat</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Résultat cytologie/histologie</label>
+                            <label data-i18n="cytologyHistology">Résultat cytologie/histologie</label>
                             <textarea name="cytologyHistology"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Adéquation de l'échantillon</label>
+                            <label data-i18n="sampleAdequacy">Adéquation de l'échantillon</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="sampleAdequacy" value="Adequate" id="samp-a">
-                                    <label for="samp-a">Adéquat</label>
+                                    <label for="samp-a" data-i18n="adequate">Adéquat</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="sampleAdequacy" value="Poor" id="samp-p">
-                                    <label for="samp-p">Pauvre</label>
+                                    <label for="samp-p" data-i18n="poor">Pauvre</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="sampleAdequacy" value="Non-contributory" id="samp-n">
-                                    <label for="samp-n">Non contributif</label>
+                                    <label for="samp-n" data-i18n="nonContributory">Non contributif</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Type d'échantillon</label>
+                            <label data-i18n="sampleType">Type d'échantillon</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="sampleType" value="Cytology" id="type-c">
-                                    <label for="type-c">Cytologie</label>
+                                    <label for="type-c" data-i18n="sampCytology">Cytologie</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="sampleType" value="Histology" id="type-h">
-                                    <label for="type-h">Histologie (FNB)</label>
+                                    <label for="type-h" data-i18n="sampHistology">Histologie (FNB)</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Diagnostic obtenu</label>
+                            <label data-i18n="diagnosisObtained">Diagnostic obtenu</label>
                             <textarea name="diagnosisObtained"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Études supplémentaires requises</label>
-                            <input type="text" name="additionalStudies" placeholder="Immunohistochimie, Biologie moléculaire, Autre">
+                            <label data-i18n="additionalStudies">Études supplémentaires requises</label>
+                            <input type="text" name="additionalStudies" data-i18n="phAdditionalStudies" placeholder="Immunohistochimie, Biologie moléculaire, Autre">
                         </div>
                         <div class="form-group">
-                            <label>Impact clinique</label>
-                            <input type="text" name="clinicalImpact" placeholder="Décision thérapeutique, Chirurgie évitée, Staging, etc.">
+                            <label data-i18n="clinicalImpact">Impact clinique</label>
+                            <input type="text" name="clinicalImpact" data-i18n="phClinicalImpact" placeholder="Décision thérapeutique, Chirurgie évitée, Staging, etc.">
                         </div>
                         <div class="form-group">
-                            <label>Discuté en RCP</label>
+                            <label data-i18n="multidisciplinary">Discuté en RCP</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="multidisciplinary" value="Oui" id="rcp-y">
-                                    <label for="rcp-y">Oui</label>
+                                    <label for="rcp-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="multidisciplinary" value="Non" id="rcp-n">
-                                    <label for="rcp-n">Non</label>
+                                    <label for="rcp-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
@@ -994,11 +994,11 @@
                     <h3>⚠️ Complications</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Complications immédiates</label>
-                            <input type="text" name="immediateComplications" placeholder="Aucune, Saignement, Perforation, Douleur, Autre">
+                            <label data-i18n="immediateComplications">Complications immédiates</label>
+                            <input type="text" name="immediateComplications" data-i18n="phImmediateComplications" placeholder="Aucune, Saignement, Perforation, Douleur, Autre">
                         </div>
                         <div class="form-group">
-                            <label>Complications retardées</label>
+                            <label data-i18n="delayedComplications">Complications retardées</label>
                             <textarea name="delayedComplications"></textarea>
                         </div>
                     </div>
@@ -1009,20 +1009,20 @@
                     <h3>📅 Suivi</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Concordance avec diagnostic chirurgical/clinique final</label>
+                            <label data-i18n="concordance">Concordance avec diagnostic chirurgical/clinique final</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" name="concordance" value="Oui" id="conc-y">
-                                    <label for="conc-y">Oui</label>
+                                    <label for="conc-y" data-i18n="yes">Oui</label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" name="concordance" value="Non" id="conc-n">
-                                    <label for="conc-n">Non</label>
+                                    <label for="conc-n" data-i18n="no">Non</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Récidive/Progression</label>
+                            <label data-i18n="recurrence">Récidive/Progression</label>
                             <textarea name="recurrence"></textarea>
                         </div>
                     </div>
@@ -1167,6 +1167,11 @@
                 dateAdmission: 'Date d\'admission',
                 dateDischarge: 'Date de sortie',
                 referringDepartment: 'Département référent',
+                deptOncology: 'Oncologie',
+                deptPulmonology: 'Pneumologie',
+                deptEndocrinology: 'Endocrinologie',
+                deptGastroenterology: 'Gastroentérologie',
+                deptOther: 'Autre',
                 select: 'Sélectionner...',
                 
                 // Indications
@@ -1203,19 +1208,82 @@
                 edemaCharacter: 'Caractère de l\'œdème',
                 jaundice: 'Ictère',
                 alteredCondition: 'État général altéré',
+
+                // Signes Fonctionnels
+                goitre: 'Goitre/nodule',
+                dysphonia: 'Dysphonie',
+                dysphagia: 'Dysphagie',
+                neckPain: 'Douleur cervicale',
+                compression: 'Sensation de compression',
+                chronicCough: 'Toux chronique',
+                hemoptysis: 'Hémoptysie',
+                dyspnea: 'Dyspnée',
+                chestPain: 'Douleur thoracique',
+                hoarseness: 'Enrouement',
+
+                // Investigations
+                biology: 'Biologie',
+                tumorMarkers: 'Marqueurs tumoraux',
+                radiography: 'Radiographie',
+                ultrasound: 'Échographie',
+                ctScan: 'CT-Scan',
+                mri: 'IRM',
+                petScan: 'PET-Scan',
+                ebus: 'EBUS',
                 
                 // Procédure
                 lesionLocation: 'Localisation de la lésion',
                 lesionSize: 'Taille (mm)',
                 echogenicPattern: 'Pattern échogénique',
+                echogenicHypo: 'Hypoéchoïque',
+                echogenicHyper: 'Hyperéchoïque',
+                echogenicHetero: 'Hétérogène',
+                echogenicOther: 'Autre',
+                anatomicalRisks: 'Risques anatomiques',
+                vascularity: 'Vascularité (Doppler)',
                 endoscopeType: 'Type d\'endoscope',
                 procedureType: 'Procédure',
+
+                approach: 'Approche',
+                appEsophageal: 'Œsophagienne',
+                appGastric: 'Gastrique',
+                appDuodenal: 'Duodénale',
+                appRectal: 'Rectale',
+                appOther: 'Autre',
+                station: 'Station',
+                singleMultiple: 'Unique ou multiple',
+                needleType: 'Type d\'aiguille',
                 needleGauge: 'Calibre d\'aiguille',
                 numberOfPasses: 'Nombre de passages',
+                mose: 'MOSE',
+                rose: 'ROSE',
+                sedation: 'Sédation/Anesthésie',
+                antibioticProphylaxis: 'Prophylaxie antibiotique',
+                antibioticType: 'Type d\'antibiotique',
+                technicalDifficulty: 'Difficulté technique',
+                technicalDifficultyDetails: 'Préciser la difficulté',
+                
+                // Diagnostic et Résultat
+                cytologyHistology: 'Résultat cytologie/histologie',
                 sampleAdequacy: 'Adéquation de l\'échantillon',
                 adequate: 'Adéquat',
                 poor: 'Pauvre',
                 nonContributory: 'Non contributif',
+                sampleType: 'Type d\'échantillon',
+                sampCytology: 'Cytologie',
+                sampHistology: 'Histologie (FNB)',
+                diagnosisObtained: 'Diagnostic obtenu',
+                additionalStudies: 'Études supplémentaires requises',
+                clinicalImpact: 'Impact clinique',
+                multidisciplinary: 'Discuté en RCP',
+
+                // Complications
+                immediateComplications: 'Complications immédiates',
+                delayedComplications: 'Complications retardées',
+
+                // Suivi
+                concordance: 'Concordance avec diagnostic chirurgical/clinique final',
+                recurrence: 'Récidive/Progression',
                 
                 // Boutons
                 savePatient: '💾 Enregistrer le Patient',
@@ -1252,7 +1320,23 @@
                 deleteConfirm: 'Êtes-vous sûr de vouloir supprimer ce patient ?',
                 importConfirm: 'Importer {count} patients ? Cela remplacera les données existantes.',
                 importSuccess: 'Données importées avec succès !',
-                importError: 'Erreur lors de l\'importation du fichier.'
+                importError: 'Erreur lors de l\'importation du fichier.',
+
+                // Placeholders
+                phAdditionalStudies: 'Immunohistochimie, Biologie moléculaire, Autre',
+                phClinicalImpact: 'Décision thérapeutique, Chirurgie évitée, Staging, etc.',
+                phImmediateComplications: 'Aucune, Saignement, Perforation, Douleur, Autre',
+
+                // Chart Labels
+                unspecified: 'Non spécifié',
+                numberOfPatients: 'Nombre de patients',
+                numberOfCases: 'Nombre de cas',
+                numberOfLesions: 'Nombre de lésions',
+                compNone: 'Aucune',
+                compBleeding: 'Saignement',
+                compPerforation: 'Perforation',
+                compPain: 'Douleur',
+                compOther: 'Autre'
             },
             en: {
                 headerTitle: '📊 EUS Data Collection & Statistics',
@@ -1288,6 +1372,11 @@
                 dateAdmission: 'Date of admission',
                 dateDischarge: 'Date of discharge',
                 referringDepartment: 'Referring department',
+                deptOncology: 'Oncology',
+                deptPulmonology: 'Pulmonology',
+                deptEndocrinology: 'Endocrinology',
+                deptGastroenterology: 'Gastroenterology',
+                deptOther: 'Other',
                 select: 'Select...',
                 
                 // Indications
@@ -1324,19 +1413,82 @@
                 edemaCharacter: 'Edema character',
                 jaundice: 'Jaundice',
                 alteredCondition: 'Altered general condition',
+
+                // Functional signs
+                goitre: 'Goiter/nodule',
+                dysphonia: 'Dysphonia',
+                dysphagia: 'Dysphagia',
+                neckPain: 'Neck pain',
+                compression: 'Compression sensation',
+                chronicCough: 'Chronic cough',
+                hemoptysis: 'Hemoptysis',
+                dyspnea: 'Dyspnea',
+                chestPain: 'Chest pain',
+                hoarseness: 'Hoarseness',
+
+                // Investigations
+                biology: 'Biology',
+                tumorMarkers: 'Tumor markers',
+                radiography: 'Radiography',
+                ultrasound: 'Ultrasound',
+                ctScan: 'CT-Scan',
+                mri: 'MRI',
+                petScan: 'PET-Scan',
+                ebus: 'EBUS',
                 
                 // Procedure
                 lesionLocation: 'Lesion location',
                 lesionSize: 'Size (mm)',
                 echogenicPattern: 'Echogenic pattern',
+                echogenicHypo: 'Hypoechoic',
+                echogenicHyper: 'Hyperechoic',
+                echogenicHetero: 'Heterogeneous',
+                echogenicOther: 'Other',
+                anatomicalRisks: 'Anatomical risks',
+                vascularity: 'Vascularity (Doppler)',
                 endoscopeType: 'Endoscope type',
                 procedureType: 'Procedure',
+
+                approach: 'Approach',
+                appEsophageal: 'Esophageal',
+                appGastric: 'Gastric',
+                appDuodenal: 'Duodénale',
+                appRectal: 'Rectale',
+                appOther: 'Other',
+                station: 'Station',
+                singleMultiple: 'Single or multiple',
+                needleType: 'Needle type',
                 needleGauge: 'Needle gauge',
                 numberOfPasses: 'Number of passes',
+                mose: 'MOSE',
+                rose: 'ROSE',
+                sedation: 'Sedation/Anesthesia',
+                antibioticProphylaxis: 'Antibiotic prophylaxis',
+                antibioticType: 'Antibiotic type',
+                technicalDifficulty: 'Technical difficulty',
+                technicalDifficultyDetails: 'Specify difficulty',
+                
+                // Diagnosis
+                cytologyHistology: 'Cytology/histology result',
                 sampleAdequacy: 'Sample adequacy',
                 adequate: 'Adequate',
                 poor: 'Poor',
                 nonContributory: 'Non-contributory',
+                sampleType: 'Sample type',
+                sampCytology: 'Cytology',
+                sampHistology: 'Histology (FNB)',
+                diagnosisObtained: 'Diagnosis obtained',
+                additionalStudies: 'Additional studies required',
+                clinicalImpact: 'Clinical impact',
+                multidisciplinary: 'Discussed in MDT',
+
+                // Complications
+                immediateComplications: 'Immediate complications',
+                delayedComplications: 'Delayed complications',
+
+                // Follow up
+                concordance: 'Concordance with final surgical/clinical diagnosis',
+                recurrence: 'Recurrence/Progression',
                 
                 // Buttons
                 savePatient: '💾 Save Patient',
@@ -1373,7 +1525,23 @@
                 deleteConfirm: 'Are you sure you want to delete this patient?',
                 importConfirm: 'Import {count} patients? This will replace existing data.',
                 importSuccess: 'Data imported successfully!',
-                importError: 'Error importing file.'
+                importError: 'Error importing file.',
+
+                // Placeholders
+                phAdditionalStudies: 'Immunohistochemistry, Molecular biology, Other',
+                phClinicalImpact: 'Therapeutic decision, Surgery avoided, Staging, etc.',
+                phImmediateComplications: 'None, Bleeding, Perforation, Pain, Other',
+
+                // Chart Labels
+                unspecified: 'Unspecified',
+                numberOfPatients: 'Number of patients',
+                numberOfCases: 'Number of cases',
+                numberOfLesions: 'Number of lesions',
+                compNone: 'None',
+                compBleeding: 'Bleeding',
+                compPerforation: 'Perforation',
+                compPain: 'Pain',
+                compOther: 'Other'
             }
         };
 
@@ -1431,12 +1599,18 @@
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) {
-                    // Vérifier si c'est un label de form-group (avec *)
-                    const parentIsFormGroup = el.closest('.form-group') && el.tagName === 'LABEL' && !el.hasAttribute('for');
-                    if (parentIsFormGroup && el.textContent.includes('*')) {
-                        el.textContent = t[key] + ' *';
-                    } else {
-                        el.textContent = t[key];
+                    // Si c'est un input ou textarea, on met à jour le placeholder
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = t[key];
+                    } 
+                    // Si c'est un label de form-group (avec *), on gère l'astérisque
+                    else {
+                        const parentIsFormGroup = el.closest('.form-group') && el.tagName === 'LABEL' && !el.hasAttribute('for');
+                        if (parentIsFormGroup && el.textContent.includes('*')) {
+                            el.textContent = t[key] + ' *';
+                        } else {
+                            el.textContent = t[key];
+                        }
                     }
                 }
             });
@@ -1718,8 +1892,15 @@
             const ctx = document.getElementById('gender-chart');
             if (charts.gender) charts.gender.destroy();
             
+            const t = translations[currentLanguage];
             const genderCounts = patients.reduce((acc, p) => {
-                acc[p.gender || 'Non spécifié'] = (acc[p.gender || 'Non spécifié'] || 0) + 1;
+                let genderLabel = p.gender || t.unspecified;
+                if (genderLabel === 'Homme') genderLabel = t.male;
+                if (genderLabel === 'Femme') genderLabel = t.female;
+                if (genderLabel === 'Male') genderLabel = t.male;
+                if (genderLabel === 'Female') genderLabel = t.female;
+                
+                acc[genderLabel] = (acc[genderLabel] || 0) + 1;
                 return acc;
             }, {});
             
@@ -1749,6 +1930,8 @@
             const ctx = document.getElementById('age-chart');
             if (charts.age) charts.age.destroy();
             
+            const t = translations[currentLanguage];
+            
             const ageRanges = {'0-20': 0, '21-40': 0, '41-60': 0, '61-80': 0, '80+': 0};
             patients.forEach(p => {
                 const age = parseInt(p.age);
@@ -1764,7 +1947,7 @@
                 data: {
                     labels: Object.keys(ageRanges),
                     datasets: [{
-                        label: 'Nombre de patients',
+                        label: t.numberOfPatients,
                         data: Object.values(ageRanges),
                         backgroundColor: '#667eea'
                     }]
@@ -1790,24 +1973,25 @@
         }
 
         // Graphique Indications
+        // Graphique Indications
         function createIndicationChart() {
             const ctx = document.getElementById('indication-chart');
             if (charts.indication) charts.indication.destroy();
             
-            const indications = {
-                'Masse médiastinale': 0,
-                'Lymphadénopathie': 0,
-                'Nodule thyroïdien': 0,
-                'Lésion surrénalienne': 0,
-                'Autre': 0
-            };
+            const t = translations[currentLanguage];
+            const indications = {};
+            indications[t.mediastinalMass] = 0;
+            indications[t.lymphadenopathy] = 0;
+            indications[t.thyroidNodule] = 0;
+            indications[t.adrenalLesion] = 0;
+            indications[t.compOther] = 0;
             
             patients.forEach(p => {
-                if (p.indication_mediastinalMass) indications['Masse médiastinale']++;
-                if (p.indication_lymphadenopathy) indications['Lymphadénopathie']++;
-                if (p.indication_thyroidNodule) indications['Nodule thyroïdien']++;
-                if (p.indication_adrenalLesion) indications['Lésion surrénalienne']++;
-                if (p.indication_other) indications['Autre']++;
+                if (p.indication_mediastinalMass) indications[t.mediastinalMass]++;
+                if (p.indication_lymphadenopathy) indications[t.lymphadenopathy]++;
+                if (p.indication_thyroidNodule) indications[t.thyroidNodule]++;
+                if (p.indication_adrenalLesion) indications[t.adrenalLesion]++;
+                if (p.indication_other) indications[t.compOther]++;
             });
             
             charts.indication = new Chart(ctx, {
@@ -1815,7 +1999,7 @@
                 data: {
                     labels: Object.keys(indications),
                     datasets: [{
-                        label: 'Nombre de cas',
+                        label: t.numberOfCases,
                         data: Object.values(indications),
                         backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b']
                     }]
@@ -1846,8 +2030,9 @@
             const ctx = document.getElementById('procedure-chart');
             if (charts.procedure) charts.procedure.destroy();
             
+            const t = translations[currentLanguage];
             const procedureCounts = patients.reduce((acc, p) => {
-                acc[p.procedureType || 'Non spécifié'] = (acc[p.procedureType || 'Non spécifié'] || 0) + 1;
+                acc[p.procedureType || t.unspecified] = (acc[p.procedureType || t.unspecified] || 0) + 1;
                 return acc;
             }, {});
             
@@ -1877,8 +2062,9 @@
             const ctx = document.getElementById('needle-gauge-chart');
             if (charts.needleGauge) charts.needleGauge.destroy();
             
+            const t = translations[currentLanguage];
             const gaugeCounts = patients.reduce((acc, p) => {
-                acc[p.needleGauge || 'Non spécifié'] = (acc[p.needleGauge || 'Non spécifié'] || 0) + 1;
+                acc[p.needleGauge || t.unspecified] = (acc[p.needleGauge || t.unspecified] || 0) + 1;
                 return acc;
             }, {});
             
@@ -1908,8 +2094,17 @@
             const ctx = document.getElementById('sample-adequacy-chart');
             if (charts.sampleAdequacy) charts.sampleAdequacy.destroy();
             
+            const t = translations[currentLanguage];
             const adequacyCounts = patients.reduce((acc, p) => {
-                acc[p.sampleAdequacy || 'Non spécifié'] = (acc[p.sampleAdequacy || 'Non spécifié'] || 0) + 1;
+                let label = p.sampleAdequacy || t.unspecified;
+                if (label === 'Adequate') label = t.adequate;
+                if (label === 'Poor') label = t.poor;
+                if (label === 'Non-contributory') label = t.nonContributory;
+                if (label === 'Adéquat') label = t.adequate;
+                if (label === 'Pauvre') label = t.poor;
+                if (label === 'Non contributif') label = t.nonContributory;
+
+                acc[label] = (acc[label] || 0) + 1;
                 return acc;
             }, {});
             
@@ -1918,7 +2113,7 @@
                 data: {
                     labels: Object.keys(adequacyCounts),
                     datasets: [{
-                        label: 'Nombre de cas',
+                        label: t.numberOfCases,
                         data: Object.values(adequacyCounts),
                         backgroundColor: ['#43e97b', '#f093fb', '#fa709a']
                     }]
@@ -1959,12 +2154,14 @@
                 else sizeRanges['40+']++;
             });
             
+            const t = translations[currentLanguage];
+            
             charts.lesionSize = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: Object.keys(sizeRanges),
                     datasets: [{
-                        label: 'Nombre de lésions',
+                        label: t.numberOfLesions,
                         data: Object.values(sizeRanges),
                         backgroundColor: '#764ba2'
                     }]
@@ -1987,7 +2184,7 @@
                         x: {
                             title: {
                                 display: true,
-                                text: 'Taille (mm)'
+                                text: t.lesionSize
                             }
                         }
                     }
@@ -2000,26 +2197,26 @@
             const ctx = document.getElementById('complications-chart');
             if (charts.complications) charts.complications.destroy();
             
-            const complicationTypes = {
-                'Aucune': 0,
-                'Saignement': 0,
-                'Perforation': 0,
-                'Douleur': 0,
-                'Autre': 0
-            };
+            const t = translations[currentLanguage];
+            const complicationTypes = {};
+            complicationTypes[t.compNone] = 0;
+            complicationTypes[t.compBleeding] = 0;
+            complicationTypes[t.compPerforation] = 0;
+            complicationTypes[t.compPain] = 0;
+            complicationTypes[t.compOther] = 0;
             
             patients.forEach(p => {
-                const comp = p.immediateComplications || 'Aucune';
+                const comp = p.immediateComplications || '';
                 if (comp.toLowerCase().includes('aucune') || comp.toLowerCase().includes('none') || comp === '') {
-                    complicationTypes['Aucune']++;
+                    complicationTypes[t.compNone]++;
                 } else if (comp.toLowerCase().includes('saignement') || comp.toLowerCase().includes('bleeding')) {
-                    complicationTypes['Saignement']++;
+                    complicationTypes[t.compBleeding]++;
                 } else if (comp.toLowerCase().includes('perforation')) {
-                    complicationTypes['Perforation']++;
+                    complicationTypes[t.compPerforation]++;
                 } else if (comp.toLowerCase().includes('douleur') || comp.toLowerCase().includes('pain')) {
-                    complicationTypes['Douleur']++;
+                    complicationTypes[t.compPain]++;
                 } else {
-                    complicationTypes['Autre']++;
+                    complicationTypes[t.compOther]++;
                 }
             });
             
