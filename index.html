@@ -377,9 +377,6 @@
             <div class="success-message" id="success-message">
                 ✅ Patient enregistré avec succès !
             </div>
-            <div class="error-message" id="error-message">
-                ❌ Veuillez remplir tous les champs obligatoires.
-            </div>
 
             <form id="patient-form">
                 <!-- IDENTITÉ PATIENT -->
@@ -387,22 +384,22 @@
                     <h3>🆔 Identité du Patient</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label data-i18n="fullName">Nom complet *</label>
-                            <input type="text" name="fullName" required>
+                            <label data-i18n="fullName">Nom complet</label>
+                            <input type="text" name="fullName">
                         </div>
                         <div class="form-group">
-                            <label data-i18n="medicalRecordNumber">Numéro de dossier médical *</label>
-                            <input type="text" name="medicalRecordNumber" required>
+                            <label data-i18n="medicalRecordNumber">Numéro de dossier médical</label>
+                            <input type="text" name="medicalRecordNumber">
                         </div>
                         <div class="form-group">
-                            <label data-i18n="age">Âge *</label>
-                            <input type="number" name="age" min="0" max="120" required>
+                            <label data-i18n="age">Âge</label>
+                            <input type="number" name="age" min="0" max="120">
                         </div>
                         <div class="form-group">
-                            <label data-i18n="gender">Genre *</label>
+                            <label data-i18n="gender">Genre</label>
                             <div class="radio-group">
                                 <div class="radio-option">
-                                    <input type="radio" name="gender" value="Femme" id="gender-f" required>
+                                    <input type="radio" name="gender" value="Femme" id="gender-f">
                                     <label for="gender-f" data-i18n="female">Femme</label>
                                 </div>
                                 <div class="radio-option">
@@ -747,12 +744,12 @@
                     <h3>📍 Résultats EUS</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Localisation de la lésion *</label>
-                            <input type="text" name="lesionLocation" required>
+                            <label>Localisation de la lésion</label>
+                            <input type="text" name="lesionLocation">
                         </div>
                         <div class="form-group">
-                            <label>Taille (mm) *</label>
-                            <input type="number" name="lesionSize" step="0.1" required>
+                            <label>Taille (mm)</label>
+                            <input type="number" name="lesionSize" step="0.1">
                         </div>
                         <div class="form-group">
                             <label>Pattern échogénique</label>
@@ -780,10 +777,10 @@
                     <h3>⚕️ Détails de la Procédure EUS</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Type d'endoscope *</label>
+                            <label>Type d'endoscope</label>
                             <div class="radio-group">
                                 <div class="radio-option">
-                                    <input type="radio" name="endoscopeType" value="Radial" id="endo-r" required>
+                                    <input type="radio" name="endoscopeType" value="Radial" id="endo-r">
                                     <label for="endo-r">Radial</label>
                                 </div>
                                 <div class="radio-option">
@@ -793,10 +790,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Procédure *</label>
+                            <label>Procédure</label>
                             <div class="radio-group">
                                 <div class="radio-option">
-                                    <input type="radio" name="procedureType" value="FNA" id="proc-fna" required>
+                                    <input type="radio" name="procedureType" value="FNA" id="proc-fna">
                                     <label for="proc-fna">FNA</label>
                                 </div>
                                 <div class="radio-option">
@@ -839,10 +836,10 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Calibre d'aiguille *</label>
+                            <label>Calibre d'aiguille</label>
                             <div class="radio-group">
                                 <div class="radio-option">
-                                    <input type="radio" name="needleGauge" value="25G" id="ng-25" required>
+                                    <input type="radio" name="needleGauge" value="25G" id="ng-25">
                                     <label for="ng-25">25G</label>
                                 </div>
                                 <div class="radio-option">
@@ -856,8 +853,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Nombre de passages *</label>
-                            <input type="number" name="numberOfPasses" min="0" required>
+                            <label>Nombre de passages</label>
+                            <input type="number" name="numberOfPasses" min="0">
                         </div>
                         <div class="form-group">
                             <label>MOSE</label>
@@ -935,10 +932,10 @@
                             <textarea name="cytologyHistology"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Adéquation de l'échantillon *</label>
+                            <label>Adéquation de l'échantillon</label>
                             <div class="radio-group">
                                 <div class="radio-option">
-                                    <input type="radio" name="sampleAdequacy" value="Adequate" id="samp-a" required>
+                                    <input type="radio" name="sampleAdequacy" value="Adequate" id="samp-a">
                                     <label for="samp-a">Adéquat</label>
                                 </div>
                                 <div class="radio-option">
@@ -1132,7 +1129,7 @@
 
     <script>
         // Langue par défaut
-        let currentLanguage = localStorage.getItem('eusLanguage') || 'fr';
+        let currentLanguage = localStorage.getItem('eusLanguage') || 'en';
 
         // Traductions
         const translations = {
@@ -1143,7 +1140,6 @@
                 tabPatients: '👥 Liste des Patients',
                 tabStats: '📈 Statistiques',
                 successMessage: '✅ Patient enregistré avec succès !',
-                errorMessage: '❌ Veuillez remplir tous les champs obligatoires.',
                 
                 // Sections du formulaire
                 sectionIdentity: '🆔 Identité du Patient',
@@ -1265,7 +1261,6 @@
                 tabPatients: '👥 Patient List',
                 tabStats: '📈 Statistics',
                 successMessage: '✅ Patient successfully registered!',
-                errorMessage: '❌ Please fill in all required fields.',
                 
                 // Form sections
                 sectionIdentity: '🆔 Patient Identity',
@@ -1415,7 +1410,6 @@
             
             // Messages
             document.getElementById('success-message').innerHTML = t.successMessage;
-            document.getElementById('error-message').innerHTML = t.errorMessage;
             
             // Titres de sections
             const sections = document.querySelectorAll('.form-section h3');
