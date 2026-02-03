@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EUS Data Collection & Statistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .language-toggle {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .language-toggle span {
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .language-toggle span.active {
+            opacity: 1;
+            font-size: 16px;
+        }
+
+        .language-toggle span:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .language-toggle {
+                position: static;
+                margin-top: 15px;
+                justify-content: center;
+            }
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #6c757d;
+            transition: all 0.3s;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .form-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .patient-list {
+            margin-top: 30px;
+        }
+
+        .patient-card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .patient-info h4 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .patient-info p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .patient-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .chart-container h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="language-toggle">
+                <span id="lang-fr" class="active" onclick="changeLanguage('fr')">🇫🇷 FR</span>
+                <span>|</span>
+                <span id="lang-en" onclick="changeLanguage('en')">🇬🇧 EN</span>
+            </div>
+            <h1 id="header-title">📊 EUS Data Collection & Statistics</h1>
+            <p id="header-subtitle">Système de collecte et d'analyse des données EUS</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('form')">➕ Nouveau Patient</button>
+            <button class="tab" onclick="switchTab('patients')">👥 Liste des Patients</button>
+            <button class="tab" onclick="switchTab('stats')">📈 Statistiques</button>
+        </div>
+
+        <!-- TAB 1: FORMULAIRE -->
+        <div id="form-tab" class="tab-content active">
+            <div class="success-message" id="success-message">
+                ✅ Patient enregistré avec succès !
+            </div>
+            <div class="error-message" id="error-message">
+                ❌ Veuillez remplir tous les champs obligatoires.
+            </div>
+
+            <form id="patient-form">
+                <!-- IDENTITÉ PATIENT -->
+                <div class="form-section">
+                    <h3>🆔 Identité du Patient</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label data-i18n="fullName">Nom complet *</label>
+                            <input type="text" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="medicalRecordNumber">Numéro de dossier médical *</label>
+                            <input type="text" name="medicalRecordNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="age">Âge *</label>
+                            <input type="number" name="age" min="0" max="120" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="gender">Genre *</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="gender" value="Femme" id="gender-f" required>
+                                    <label for="gender-f" data-i18n="female">Femme</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="gender" value="Homme" id="gender-m">
+                                    <label for="gender-m" data-i18n="male">Homme</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="residency">Résidence</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="residency" value="Rural" id="res-r">
+                                    <label for="res-r" data-i18n="rural">Rural</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="residency" value="Urban" id="res-u">
+                                    <label for="res-u" data-i18n="urban">Urban</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="dateAdmission">Date d'admission</label>
+                            <input type="date" name="dateAdmission">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="dateDischarge">Date de sortie</label>
+                            <input type="date" name="dateDischarge">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="referringDepartment">Département référent</label>
+                            <select name="referringDepartment">
+                                <option value="" data-i18n="select">Sélectionner...</option>
+                                <option value="Oncology">Oncologie</option>
+                                <option value="Pulmonology">Pneumologie</option>
+                                <option value="Endocrinology">Endocrinologie</option>
+                                <option value="Gastroenterology">Gastroentérologie</option>
+                                <option value="Other">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INDICATION PRINCIPALE -->
+                <div class="form-section">
+                    <h3>🎯 Indication Principale pour EUS</h3>
+                    <div class="form-grid">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="indication_mediastinalMass" id="ind1">
+                            <label for="ind1">Masse médiastinale</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="indication_lymphadenopathy" id="ind2">
+                            <label for="ind2">Lymphadénopathie</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="indication_thyroidNodule" id="ind3">
+                            <label for="ind3">Nodule thyroïdien</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="indication_adrenalLesion" id="ind4">
+                            <label for="ind4">Lésion surrénalienne</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Autre (préciser)</label>
+                            <input type="text" name="indication_other">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANTÉCÉDENTS MÉDICAUX -->
+                <div class="form-section">
+                    <h3>📋 Antécédents Médicaux</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Antécédents de malignité</label>
+                            <textarea name="historyMalignancy"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Troubles thyroïdiens</label>
+                            <textarea name="thyroidDisorders"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Maladies cardiopulmonaires</label>
+                            <textarea name="cardiopulmonary"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Antécédents d'infections</label>
+                            <textarea name="historyInfections"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Autres comorbidités</label>
+                            <textarea name="otherComorbidities"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Antécédents chirurgicaux</label>
+                            <textarea name="surgicalHistory"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Substances addictives</label>
+                            <textarea name="addictiveSubstances"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Allergies</label>
+                            <textarea name="allergies"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Antécédents familiaux de malignité</label>
+                            <textarea name="familyMalignancy"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Affections héréditaires</label>
+                            <textarea name="hereditaryAffections"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIGNES GÉNÉRAUX -->
+                <div class="form-section">
+                    <h3>🌡️ Signes Généraux</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Fièvre</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="fever" value="Oui" id="fever-y">
+                                    <label for="fever-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="fever" value="Non" id="fever-n">
+                                    <label for="fever-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Température (°C)</label>
+                            <input type="number" name="temperature" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Perte de poids involontaire</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="weightLoss" value="Oui" id="wl-y">
+                                    <label for="wl-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="weightLoss" value="Non" id="wl-n">
+                                    <label for="wl-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Kg/temps</label>
+                            <input type="text" name="weightLossAmount">
+                        </div>
+                        <div class="form-group">
+                            <label>Asthénie</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="asthenia" value="Oui" id="ast-y">
+                                    <label for="ast-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="asthenia" value="Non" id="ast-n">
+                                    <label for="ast-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Anorexie</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="anorexia" value="Oui" id="ano-y">
+                                    <label for="ano-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="anorexia" value="Non" id="ano-n">
+                                    <label for="ano-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Sueurs nocturnes</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="nightSweats" value="Oui" id="ns-y">
+                                    <label for="ns-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="nightSweats" value="Non" id="ns-n">
+                                    <label for="ns-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Pâleur</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="pallor" value="Oui" id="pal-y">
+                                    <label for="pal-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="pallor" value="Non" id="pal-n">
+                                    <label for="pal-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Œdème</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="edema" value="Oui" id="ed-y">
+                                    <label for="ed-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="edema" value="Non" id="ed-n">
+                                    <label for="ed-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Caractère de l'œdème</label>
+                            <input type="text" name="edemaCharacter">
+                        </div>
+                        <div class="form-group">
+                            <label>Ictère</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="jaundice" value="Oui" id="jau-y">
+                                    <label for="jau-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="jaundice" value="Non" id="jau-n">
+                                    <label for="jau-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>État général altéré</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="alteredCondition" value="Oui" id="alt-y">
+                                    <label for="alt-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="alteredCondition" value="Non" id="alt-n">
+                                    <label for="alt-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIGNES FONCTIONNELS -->
+                <div class="form-section">
+                    <h3>🔍 Signes Fonctionnels</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Goitre/nodule</label>
+                            <input type="text" name="goitre">
+                        </div>
+                        <div class="form-group">
+                            <label>Dysphonie</label>
+                            <input type="text" name="dysphonia">
+                        </div>
+                        <div class="form-group">
+                            <label>Dysphagie</label>
+                            <input type="text" name="dysphagia">
+                        </div>
+                        <div class="form-group">
+                            <label>Douleur cervicale</label>
+                            <input type="text" name="neckPain">
+                        </div>
+                        <div class="form-group">
+                            <label>Sensation de compression</label>
+                            <input type="text" name="compression">
+                        </div>
+                        <div class="form-group">
+                            <label>Toux chronique</label>
+                            <input type="text" name="chronicCough">
+                        </div>
+                        <div class="form-group">
+                            <label>Hémoptysie</label>
+                            <input type="text" name="hemoptysis">
+                        </div>
+                        <div class="form-group">
+                            <label>Dyspnée</label>
+                            <input type="text" name="dyspnea">
+                        </div>
+                        <div class="form-group">
+                            <label>Douleur thoracique</label>
+                            <input type="text" name="chestPain">
+                        </div>
+                        <div class="form-group">
+                            <label>Enrouement</label>
+                            <input type="text" name="hoarseness">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INVESTIGATIONS AVANT EUS -->
+                <div class="form-section">
+                    <h3>🔬 Investigations Avant EUS</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Biologie</label>
+                            <textarea name="biology"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Marqueurs tumoraux</label>
+                            <textarea name="tumorMarkers"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Radiographie</label>
+                            <textarea name="radiography"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Échographie</label>
+                            <textarea name="ultrasound"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>CT-Scan</label>
+                            <textarea name="ctScan"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>IRM</label>
+                            <textarea name="mri"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>PET-Scan</label>
+                            <textarea name="petScan"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>EBUS</label>
+                            <textarea name="ebus"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RÉSULTATS EUS -->
+                <div class="form-section">
+                    <h3>📍 Résultats EUS</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Localisation de la lésion *</label>
+                            <input type="text" name="lesionLocation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Taille (mm) *</label>
+                            <input type="number" name="lesionSize" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Pattern échogénique</label>
+                            <select name="echogenicPattern">
+                                <option value="">Sélectionner...</option>
+                                <option value="Hypoéchoïque">Hypoéchoïque</option>
+                                <option value="Hyperéchoïque">Hyperéchoïque</option>
+                                <option value="Hétérogène">Hétérogène</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Risques anatomiques</label>
+                            <textarea name="anatomicalRisks"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Vascularité (Doppler)</label>
+                            <input type="text" name="vascularity">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DÉTAILS DE LA PROCÉDURE EUS -->
+                <div class="form-section">
+                    <h3>⚕️ Détails de la Procédure EUS</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Type d'endoscope *</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="endoscopeType" value="Radial" id="endo-r" required>
+                                    <label for="endo-r">Radial</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="endoscopeType" value="Linear" id="endo-l">
+                                    <label for="endo-l">Linear</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Procédure *</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="procedureType" value="FNA" id="proc-fna" required>
+                                    <label for="proc-fna">FNA</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="procedureType" value="FNB" id="proc-fnb">
+                                    <label for="proc-fnb">FNB</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Approche</label>
+                            <select name="approach">
+                                <option value="">Sélectionner...</option>
+                                <option value="Esophageal">Œsophagienne</option>
+                                <option value="Gastric">Gastrique</option>
+                                <option value="Duodenal">Duodénale</option>
+                                <option value="Rectal">Rectale</option>
+                                <option value="Other">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Station</label>
+                            <input type="text" name="station">
+                        </div>
+                        <div class="form-group">
+                            <label>Unique ou multiple</label>
+                            <input type="text" name="singleMultiple">
+                        </div>
+                        <div class="form-group">
+                            <label>Type d'aiguille</label>
+                            <select name="needleType">
+                                <option value="">Sélectionner...</option>
+                                <option value="Boston acquire">Boston acquire</option>
+                                <option value="Boston expect">Boston expect</option>
+                                <option value="EZ Shot 3">EZ Shot 3</option>
+                                <option value="Wilson Procore">Wilson Procore</option>
+                                <option value="Microtech">Microtech</option>
+                                <option value="Needle knife">Needle knife</option>
+                                <option value="Cook Echo Tip">Cook Echo Tip</option>
+                                <option value="Cook Access">Cook Access</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Calibre d'aiguille *</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="needleGauge" value="25G" id="ng-25" required>
+                                    <label for="ng-25">25G</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="needleGauge" value="22G" id="ng-22">
+                                    <label for="ng-22">22G</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="needleGauge" value="19G" id="ng-19">
+                                    <label for="ng-19">19G</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre de passages *</label>
+                            <input type="number" name="numberOfPasses" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>MOSE</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="mose" value="Oui" id="mose-y">
+                                    <label for="mose-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="mose" value="Non" id="mose-n">
+                                    <label for="mose-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>ROSE</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="rose" value="Oui" id="rose-y">
+                                    <label for="rose-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="rose" value="Non" id="rose-n">
+                                    <label for="rose-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Sédation/Anesthésie</label>
+                            <input type="text" name="sedation">
+                        </div>
+                        <div class="form-group">
+                            <label>Prophylaxie antibiotique</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="antibioticProphylaxis" value="Oui" id="abx-y">
+                                    <label for="abx-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="antibioticProphylaxis" value="Non" id="abx-n">
+                                    <label for="abx-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Type d'antibiotique</label>
+                            <input type="text" name="antibioticType">
+                        </div>
+                        <div class="form-group">
+                            <label>Difficulté technique</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="technicalDifficulty" value="Oui" id="diff-y">
+                                    <label for="diff-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="technicalDifficulty" value="Non" id="diff-n">
+                                    <label for="diff-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Préciser la difficulté</label>
+                            <input type="text" name="technicalDifficultyDetails">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIAGNOSTIC ET RÉSULTAT -->
+                <div class="form-section">
+                    <h3>🔬 Diagnostic et Résultat</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Résultat cytologie/histologie</label>
+                            <textarea name="cytologyHistology"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Adéquation de l'échantillon *</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="sampleAdequacy" value="Adequate" id="samp-a" required>
+                                    <label for="samp-a">Adéquat</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="sampleAdequacy" value="Poor" id="samp-p">
+                                    <label for="samp-p">Pauvre</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="sampleAdequacy" value="Non-contributory" id="samp-n">
+                                    <label for="samp-n">Non contributif</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Type d'échantillon</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="sampleType" value="Cytology" id="type-c">
+                                    <label for="type-c">Cytologie</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="sampleType" value="Histology" id="type-h">
+                                    <label for="type-h">Histologie (FNB)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Diagnostic obtenu</label>
+                            <textarea name="diagnosisObtained"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Études supplémentaires requises</label>
+                            <input type="text" name="additionalStudies" placeholder="Immunohistochimie, Biologie moléculaire, Autre">
+                        </div>
+                        <div class="form-group">
+                            <label>Impact clinique</label>
+                            <input type="text" name="clinicalImpact" placeholder="Décision thérapeutique, Chirurgie évitée, Staging, etc.">
+                        </div>
+                        <div class="form-group">
+                            <label>Discuté en RCP</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="multidisciplinary" value="Oui" id="rcp-y">
+                                    <label for="rcp-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="multidisciplinary" value="Non" id="rcp-n">
+                                    <label for="rcp-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMPLICATIONS -->
+                <div class="form-section">
+                    <h3>⚠️ Complications</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Complications immédiates</label>
+                            <input type="text" name="immediateComplications" placeholder="Aucune, Saignement, Perforation, Douleur, Autre">
+                        </div>
+                        <div class="form-group">
+                            <label>Complications retardées</label>
+                            <textarea name="delayedComplications"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUIVI -->
+                <div class="form-section">
+                    <h3>📅 Suivi</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Concordance avec diagnostic chirurgical/clinique final</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="concordance" value="Oui" id="conc-y">
+                                    <label for="conc-y">Oui</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="concordance" value="Non" id="conc-n">
+                                    <label for="conc-n">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Récidive/Progression</label>
+                            <textarea name="recurrence"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary" data-i18n="savePatient">💾 Enregistrer le Patient</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()" data-i18n="reset">🔄 Réinitialiser</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TAB 2: LISTE DES PATIENTS -->
+        <div id="patients-tab" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 20px;">👥 Liste des Patients Enregistrés</h2>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="exportData()" data-i18n="exportData">📥 Exporter les données (JSON)</button>
+                <button class="btn btn-secondary" onclick="importData()" data-i18n="importData">📤 Importer des données</button>
+                <input type="file" id="import-file" accept=".json" style="display: none;" onchange="handleImport(event)">
+            </div>
+            <div id="patient-list" class="patient-list"></div>
+        </div>
+
+        <!-- TAB 3: STATISTIQUES -->
+        <div id="stats-tab" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 30px; text-align: center;">📊 Statistiques et Analyses</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 id="total-patients">0</h3>
+                    <p>Patients Total</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="technical-success">0%</h3>
+                    <p>Taux de Succès Technique</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="adequate-sample">0%</h3>
+                    <p>Taux d'Échantillon Adéquat</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="complication-rate">0%</h3>
+                    <p>Taux de Complications</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Répartition par Genre</h3>
+                <div class="chart-wrapper">
+                    <canvas id="gender-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Répartition par Âge</h3>
+                <div class="chart-wrapper">
+                    <canvas id="age-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Indications Principales pour EUS</h3>
+                <div class="chart-wrapper">
+                    <canvas id="indication-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Type de Procédure (FNA vs FNB)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="procedure-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Calibre d'Aiguille Utilisé</h3>
+                <div class="chart-wrapper">
+                    <canvas id="needle-gauge-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Adéquation de l'Échantillon</h3>
+                <div class="chart-wrapper">
+                    <canvas id="sample-adequacy-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Distribution de la Taille des Lésions (mm)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="lesion-size-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Complications Immédiates</h3>
+                <div class="chart-wrapper">
+                    <canvas id="complications-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Langue par défaut
+        let currentLanguage = localStorage.getItem('eusLanguage') || 'fr';
+
+        // Traductions
+        const translations = {
+            fr: {
+                headerTitle: '📊 EUS Data Collection & Statistics',
+                headerSubtitle: 'Système de collecte et d\'analyse des données EUS',
+                tabForm: '➕ Nouveau Patient',
+                tabPatients: '👥 Liste des Patients',
+                tabStats: '📈 Statistiques',
+                successMessage: '✅ Patient enregistré avec succès !',
+                errorMessage: '❌ Veuillez remplir tous les champs obligatoires.',
+                
+                // Sections du formulaire
+                sectionIdentity: '🆔 Identité du Patient',
+                sectionIndication: '🎯 Indication Principale pour EUS',
+                sectionHistory: '📋 Antécédents Médicaux',
+                sectionGeneralSigns: '🌡️ Signes Généraux',
+                sectionFunctionalSigns: '🔍 Signes Fonctionnels',
+                sectionInvestigations: '🔬 Investigations Avant EUS',
+                sectionEUSFindings: '📍 Résultats EUS',
+                sectionProcedure: '⚕️ Détails de la Procédure EUS',
+                sectionDiagnosis: '🔬 Diagnostic et Résultat',
+                sectionComplications: '⚠️ Complications',
+                sectionFollowUp: '📅 Suivi',
+                
+                // Labels
+                fullName: 'Nom complet',
+                medicalRecordNumber: 'Numéro de dossier médical',
+                age: 'Âge',
+                gender: 'Genre',
+                female: 'Femme',
+                male: 'Homme',
+                residency: 'Résidence',
+                rural: 'Rural',
+                urban: 'Urban',
+                dateAdmission: 'Date d\'admission',
+                dateDischarge: 'Date de sortie',
+                referringDepartment: 'Département référent',
+                select: 'Sélectionner...',
+                
+                // Indications
+                mediastinalMass: 'Masse médiastinale',
+                lymphadenopathy: 'Lymphadénopathie',
+                thyroidNodule: 'Nodule thyroïdien',
+                adrenalLesion: 'Lésion surrénalienne',
+                otherSpecify: 'Autre (préciser)',
+                
+                // Antécédents
+                historyMalignancy: 'Antécédents de malignité',
+                thyroidDisorders: 'Troubles thyroïdiens',
+                cardiopulmonary: 'Maladies cardiopulmonaires',
+                historyInfections: 'Antécédents d\'infections',
+                otherComorbidities: 'Autres comorbidités',
+                surgicalHistory: 'Antécédents chirurgicaux',
+                addictiveSubstances: 'Substances addictives',
+                allergies: 'Allergies',
+                familyMalignancy: 'Antécédents familiaux de malignité',
+                hereditaryAffections: 'Affections héréditaires',
+                
+                // Signes généraux
+                fever: 'Fièvre',
+                yes: 'Oui',
+                no: 'Non',
+                temperature: 'Température (°C)',
+                weightLoss: 'Perte de poids involontaire',
+                weightLossAmount: 'Kg/temps',
+                asthenia: 'Asthénie',
+                anorexia: 'Anorexie',
+                nightSweats: 'Sueurs nocturnes',
+                pallor: 'Pâleur',
+                edema: 'Œdème',
+                edemaCharacter: 'Caractère de l\'œdème',
+                jaundice: 'Ictère',
+                alteredCondition: 'État général altéré',
+                
+                // Procédure
+                lesionLocation: 'Localisation de la lésion',
+                lesionSize: 'Taille (mm)',
+                echogenicPattern: 'Pattern échogénique',
+                endoscopeType: 'Type d\'endoscope',
+                procedureType: 'Procédure',
+                needleGauge: 'Calibre d\'aiguille',
+                numberOfPasses: 'Nombre de passages',
+                sampleAdequacy: 'Adéquation de l\'échantillon',
+                adequate: 'Adéquat',
+                poor: 'Pauvre',
+                nonContributory: 'Non contributif',
+                
+                // Boutons
+                savePatient: '💾 Enregistrer le Patient',
+                reset: '🔄 Réinitialiser',
+                exportData: '📥 Exporter les données (JSON)',
+                importData: '📤 Importer des données',
+                edit: '✏️ Modifier',
+                delete: '🗑️ Supprimer',
+                
+                // Liste patients
+                patientsListTitle: '👥 Liste des Patients Enregistrés',
+                noPatients: 'Aucun patient enregistré pour le moment.',
+                file: 'Dossier',
+                lesion: 'Lésion',
+                size: 'Taille',
+                
+                // Stats
+                statsTitle: '📊 Statistiques et Analyses',
+                totalPatients: 'Patients Total',
+                technicalSuccess: 'Taux de Succès Technique',
+                adequateSampleRate: 'Taux d\'Échantillon Adéquat',
+                complicationRate: 'Taux de Complications',
+                
+                // Graphiques
+                chartGender: 'Répartition par Genre',
+                chartAge: 'Répartition par Âge',
+                chartIndication: 'Indications Principales pour EUS',
+                chartProcedure: 'Type de Procédure (FNA vs FNB)',
+                chartNeedle: 'Calibre d\'Aiguille Utilisé',
+                chartAdequacy: 'Adéquation de l\'Échantillon',
+                chartLesionSize: 'Distribution de la Taille des Lésions (mm)',
+                chartComplications: 'Complications Immédiates',
+                
+                deleteConfirm: 'Êtes-vous sûr de vouloir supprimer ce patient ?',
+                importConfirm: 'Importer {count} patients ? Cela remplacera les données existantes.',
+                importSuccess: 'Données importées avec succès !',
+                importError: 'Erreur lors de l\'importation du fichier.'
+            },
+            en: {
+                headerTitle: '📊 EUS Data Collection & Statistics',
+                headerSubtitle: 'EUS Data Collection and Analysis System',
+                tabForm: '➕ New Patient',
+                tabPatients: '👥 Patient List',
+                tabStats: '📈 Statistics',
+                successMessage: '✅ Patient successfully registered!',
+                errorMessage: '❌ Please fill in all required fields.',
+                
+                // Form sections
+                sectionIdentity: '🆔 Patient Identity',
+                sectionIndication: '🎯 Main Indication for EUS',
+                sectionHistory: '📋 Medical History',
+                sectionGeneralSigns: '🌡️ General Signs',
+                sectionFunctionalSigns: '🔍 Functional Signs',
+                sectionInvestigations: '🔬 Investigations Before EUS',
+                sectionEUSFindings: '📍 EUS Findings',
+                sectionProcedure: '⚕️ EUS Procedure Details',
+                sectionDiagnosis: '🔬 Diagnosis & Outcome',
+                sectionComplications: '⚠️ Complications',
+                sectionFollowUp: '📅 Follow-up',
+                
+                // Labels
+                fullName: 'Full name',
+                medicalRecordNumber: 'Medical record number',
+                age: 'Age',
+                gender: 'Gender',
+                female: 'Female',
+                male: 'Male',
+                residency: 'Residency',
+                rural: 'Rural',
+                urban: 'Urban',
+                dateAdmission: 'Date of admission',
+                dateDischarge: 'Date of discharge',
+                referringDepartment: 'Referring department',
+                select: 'Select...',
+                
+                // Indications
+                mediastinalMass: 'Mediastinal mass',
+                lymphadenopathy: 'Lymphadenopathy',
+                thyroidNodule: 'Thyroid nodule',
+                adrenalLesion: 'Adrenal lesion',
+                otherSpecify: 'Other (specify)',
+                
+                // History
+                historyMalignancy: 'History of malignancy',
+                thyroidDisorders: 'Thyroid disorders',
+                cardiopulmonary: 'Cardiopulmonary diseases',
+                historyInfections: 'History of infections',
+                otherComorbidities: 'Other comorbidities',
+                surgicalHistory: 'Surgical history',
+                addictiveSubstances: 'Addictive substances',
+                allergies: 'Allergies',
+                familyMalignancy: 'Family history of malignancy',
+                hereditaryAffections: 'Hereditary affections',
+                
+                // General signs
+                fever: 'Fever',
+                yes: 'Yes',
+                no: 'No',
+                temperature: 'Temperature (°C)',
+                weightLoss: 'Weight loss (involuntary)',
+                weightLossAmount: 'Kg/time',
+                asthenia: 'Asthenia',
+                anorexia: 'Anorexia',
+                nightSweats: 'Night sweats',
+                pallor: 'Pallor',
+                edema: 'Edema',
+                edemaCharacter: 'Edema character',
+                jaundice: 'Jaundice',
+                alteredCondition: 'Altered general condition',
+                
+                // Procedure
+                lesionLocation: 'Lesion location',
+                lesionSize: 'Size (mm)',
+                echogenicPattern: 'Echogenic pattern',
+                endoscopeType: 'Endoscope type',
+                procedureType: 'Procedure',
+                needleGauge: 'Needle gauge',
+                numberOfPasses: 'Number of passes',
+                sampleAdequacy: 'Sample adequacy',
+                adequate: 'Adequate',
+                poor: 'Poor',
+                nonContributory: 'Non-contributory',
+                
+                // Buttons
+                savePatient: '💾 Save Patient',
+                reset: '🔄 Reset',
+                exportData: '📥 Export Data (JSON)',
+                importData: '📤 Import Data',
+                edit: '✏️ Edit',
+                delete: '🗑️ Delete',
+                
+                // Patient list
+                patientsListTitle: '👥 Registered Patients List',
+                noPatients: 'No patients registered yet.',
+                file: 'File',
+                lesion: 'Lesion',
+                size: 'Size',
+                
+                // Stats
+                statsTitle: '📊 Statistics and Analysis',
+                totalPatients: 'Total Patients',
+                technicalSuccess: 'Technical Success Rate',
+                adequateSampleRate: 'Adequate Sample Rate',
+                complicationRate: 'Complication Rate',
+                
+                // Charts
+                chartGender: 'Gender Distribution',
+                chartAge: 'Age Distribution',
+                chartIndication: 'Main Indications for EUS',
+                chartProcedure: 'Procedure Type (FNA vs FNB)',
+                chartNeedle: 'Needle Gauge Used',
+                chartAdequacy: 'Sample Adequacy',
+                chartLesionSize: 'Lesion Size Distribution (mm)',
+                chartComplications: 'Immediate Complications',
+                
+                deleteConfirm: 'Are you sure you want to delete this patient?',
+                importConfirm: 'Import {count} patients? This will replace existing data.',
+                importSuccess: 'Data imported successfully!',
+                importError: 'Error importing file.'
+            }
+        };
+
+        // Fonction pour changer la langue
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('eusLanguage', lang);
+            
+            // Mettre à jour l'indicateur actif
+            document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            
+            // Appliquer les traductions
+            applyTranslations();
+            
+            // Mettre à jour les graphiques si on est sur l'onglet stats
+            if (document.getElementById('stats-tab').classList.contains('active')) {
+                updateStatistics();
+            }
+        }
+
+        // Fonction pour appliquer les traductions
+        function applyTranslations() {
+            const t = translations[currentLanguage];
+            
+            // Header
+            document.getElementById('header-title').textContent = t.headerTitle;
+            document.getElementById('header-subtitle').textContent = t.headerSubtitle;
+            
+            // Onglets
+            document.querySelectorAll('.tab')[0].innerHTML = t.tabForm;
+            document.querySelectorAll('.tab')[1].innerHTML = t.tabPatients;
+            document.querySelectorAll('.tab')[2].innerHTML = t.tabStats;
+            
+            // Messages
+            document.getElementById('success-message').innerHTML = t.successMessage;
+            document.getElementById('error-message').innerHTML = t.errorMessage;
+            
+            // Titres de sections
+            const sections = document.querySelectorAll('.form-section h3');
+            if (sections.length > 0) {
+                sections[0].textContent = t.sectionIdentity;
+                sections[1].textContent = t.sectionIndication;
+                sections[2].textContent = t.sectionHistory;
+                sections[3].textContent = t.sectionGeneralSigns;
+                sections[4].textContent = t.sectionFunctionalSigns;
+                sections[5].textContent = t.sectionInvestigations;
+                sections[6].textContent = t.sectionEUSFindings;
+                sections[7].textContent = t.sectionProcedure;
+                sections[8].textContent = t.sectionDiagnosis;
+                sections[9].textContent = t.sectionComplications;
+                sections[10].textContent = t.sectionFollowUp;
+            }
+            
+            // Mettre à jour tous les éléments avec data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    // Vérifier si c'est un label de form-group (avec *)
+                    const parentIsFormGroup = el.closest('.form-group') && el.tagName === 'LABEL' && !el.hasAttribute('for');
+                    if (parentIsFormGroup && el.textContent.includes('*')) {
+                        el.textContent = t[key] + ' *';
+                    } else {
+                        el.textContent = t[key];
+                    }
+                }
+            });
+            
+            // Stats
+            const statsTitle = document.querySelector('#stats-tab h2');
+            if (statsTitle) statsTitle.textContent = t.statsTitle;
+            
+            const statCards = document.querySelectorAll('.stat-card p');
+            if (statCards.length >= 4) {
+                statCards[0].textContent = t.totalPatients;
+                statCards[1].textContent = t.technicalSuccess;
+                statCards[2].textContent = t.adequateSampleRate;
+                statCards[3].textContent = t.complicationRate;
+            }
+            
+            // Titres des graphiques
+            const chartTitles = document.querySelectorAll('.chart-container h3');
+            if (chartTitles.length >= 8) {
+                chartTitles[0].textContent = t.chartGender;
+                chartTitles[1].textContent = t.chartAge;
+                chartTitles[2].textContent = t.chartIndication;
+                chartTitles[3].textContent = t.chartProcedure;
+                chartTitles[4].textContent = t.chartNeedle;
+                chartTitles[5].textContent = t.chartAdequacy;
+                chartTitles[6].textContent = t.chartLesionSize;
+                chartTitles[7].textContent = t.chartComplications;
+            }
+            
+            // Liste patients
+            const patientsTitle = document.querySelector('#patients-tab h2');
+            if (patientsTitle) patientsTitle.textContent = t.patientsListTitle;
+            
+            // Mettre à jour la liste des patients
+            updatePatientList();
+        }
+
+        // Stockage des données
+        let patients = JSON.parse(localStorage.getItem('eusPatients') || '[]');
+        let editingIndex = -1;
+
+        // Charger les patients au démarrage
+        window.addEventListener('DOMContentLoaded', function() {
+            applyTranslations();
+            updatePatientList();
+            updateStatistics();
+        });
+
+        // Gestion des onglets
+        function switchTab(tabName) {
+            // Masquer tous les contenus
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Désactiver tous les boutons d'onglets
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Activer l'onglet sélectionné
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+            
+            // Mettre à jour les statistiques si on va sur l'onglet stats
+            if (tabName === 'stats') {
+                updateStatistics();
+            }
+            
+            // Mettre à jour la liste des patients si on va sur l'onglet patients
+            if (tabName === 'patients') {
+                updatePatientList();
+            }
+        }
+
+        // Soumission du formulaire
+        document.getElementById('patient-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const patient = {};
+            
+            // Convertir FormData en objet
+            for (let [key, value] of formData.entries()) {
+                patient[key] = value;
+            }
+            
+            // Ajouter un timestamp
+            patient.timestamp = new Date().toISOString();
+            
+            // Ajouter ou modifier le patient
+            if (editingIndex >= 0) {
+                patients[editingIndex] = patient;
+                editingIndex = -1;
+            } else {
+                patients.push(patient);
+            }
+            
+            // Sauvegarder dans localStorage
+            localStorage.setItem('eusPatients', JSON.stringify(patients));
+            
+            // Afficher le message de succès
+            const successMsg = document.getElementById('success-message');
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+            
+            // Réinitialiser le formulaire
+            this.reset();
+            
+            // Mettre à jour la liste
+            updatePatientList();
+        });
+
+        // Réinitialiser le formulaire
+        function resetForm() {
+            document.getElementById('patient-form').reset();
+            editingIndex = -1;
+        }
+
+        // Mettre à jour la liste des patients
+        function updatePatientList() {
+            const listContainer = document.getElementById('patient-list');
+            const t = translations[currentLanguage];
+            
+            if (patients.length === 0) {
+                listContainer.innerHTML = `<p style="text-align: center; color: #6c757d; padding: 40px;">${t.noPatients}</p>`;
+                return;
+            }
+            
+            listContainer.innerHTML = patients.map((patient, index) => `
+                <div class="patient-card">
+                    <div class="patient-info">
+                        <h4>${patient.fullName || 'N/A'}</h4>
+                        <p>${t.file}: ${patient.medicalRecordNumber || 'N/A'} | ${t.age}: ${patient.age || 'N/A'} | ${t.gender}: ${patient.gender || 'N/A'}</p>
+                        <p>${t.lesion}: ${patient.lesionLocation || 'N/A'} | ${t.size}: ${patient.lesionSize || 'N/A'} mm</p>
+                    </div>
+                    <div class="patient-actions">
+                        <button class="btn btn-secondary" onclick="editPatient(${index})">${t.edit}</button>
+                        <button class="btn btn-danger" onclick="deletePatient(${index})">${t.delete}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Éditer un patient
+        function editPatient(index) {
+            const patient = patients[index];
+            editingIndex = index;
+            
+            // Remplir le formulaire
+            const form = document.getElementById('patient-form');
+            Object.keys(patient).forEach(key => {
+                const input = form.elements[key];
+                if (input) {
+                    if (input.type === 'radio') {
+                        const radioInput = form.querySelector(`input[name="${key}"][value="${patient[key]}"]`);
+                        if (radioInput) radioInput.checked = true;
+                    } else if (input.type === 'checkbox') {
+                        input.checked = patient[key];
+                    } else {
+                        input.value = patient[key];
+                    }
+                }
+            });
+            
+            // Aller à l'onglet formulaire
+            switchTab('form');
+            document.querySelector('.tab').click();
+            
+            // Scroll vers le haut
+            window.scrollTo(0, 0);
+        }
+
+        // Supprimer un patient
+        function deletePatient(index) {
+            const t = translations[currentLanguage];
+            if (confirm(t.deleteConfirm)) {
+                patients.splice(index, 1);
+                localStorage.setItem('eusPatients', JSON.stringify(patients));
+                updatePatientList();
+                updateStatistics();
+            }
+        }
+
+        // Exporter les données
+        function exportData() {
+            const dataStr = JSON.stringify(patients, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `eus_data_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Importer des données
+        function importData() {
+            document.getElementById('import-file').click();
+        }
+
+        function handleImport(event) {
+            const file = event.target.files[0];
+            const t = translations[currentLanguage];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        if (confirm(t.importConfirm.replace('{count}', importedData.length))) {
+                            patients = importedData;
+                            localStorage.setItem('eusPatients', JSON.stringify(patients));
+                            updatePatientList();
+                            updateStatistics();
+                            alert(t.importSuccess);
+                        }
+                    } catch (error) {
+                        alert(t.importError);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        // Variables pour les graphiques
+        let charts = {};
+
+        // Mettre à jour les statistiques
+        function updateStatistics() {
+            if (patients.length === 0) {
+                document.getElementById('total-patients').textContent = '0';
+                document.getElementById('technical-success').textContent = '0%';
+                document.getElementById('adequate-sample').textContent = '0%';
+                document.getElementById('complication-rate').textContent = '0%';
+                
+                // Détruire tous les graphiques existants
+                Object.values(charts).forEach(chart => chart.destroy());
+                charts = {};
+                return;
+            }
+            
+            // Total des patients
+            document.getElementById('total-patients').textContent = patients.length;
+            
+            // Taux de succès technique (basé sur la difficulté technique)
+            const technicalSuccess = patients.filter(p => p.technicalDifficulty !== 'Oui').length;
+            const successRate = ((technicalSuccess / patients.length) * 100).toFixed(1);
+            document.getElementById('technical-success').textContent = successRate + '%';
+            
+            // Taux d'échantillon adéquat
+            const adequateSamples = patients.filter(p => p.sampleAdequacy === 'Adequate').length;
+            const adequateRate = ((adequateSamples / patients.length) * 100).toFixed(1);
+            document.getElementById('adequate-sample').textContent = adequateRate + '%';
+            
+            // Taux de complications
+            const complications = patients.filter(p => 
+                p.immediateComplications && 
+                p.immediateComplications !== '' && 
+                p.immediateComplications.toLowerCase() !== 'aucune' &&
+                p.immediateComplications.toLowerCase() !== 'none'
+            ).length;
+            const complicationRate = ((complications / patients.length) * 100).toFixed(1);
+            document.getElementById('complication-rate').textContent = complicationRate + '%';
+            
+            // Graphiques
+            createGenderChart();
+            createAgeChart();
+            createIndicationChart();
+            createProcedureChart();
+            createNeedleGaugeChart();
+            createSampleAdequacyChart();
+            createLesionSizeChart();
+            createComplicationsChart();
+        }
+
+        // Graphique Genre
+        function createGenderChart() {
+            const ctx = document.getElementById('gender-chart');
+            if (charts.gender) charts.gender.destroy();
+            
+            const genderCounts = patients.reduce((acc, p) => {
+                acc[p.gender || 'Non spécifié'] = (acc[p.gender || 'Non spécifié'] || 0) + 1;
+                return acc;
+            }, {});
+            
+            charts.gender = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(genderCounts),
+                    datasets: [{
+                        data: Object.values(genderCounts),
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Âge
+        function createAgeChart() {
+            const ctx = document.getElementById('age-chart');
+            if (charts.age) charts.age.destroy();
+            
+            const ageRanges = {'0-20': 0, '21-40': 0, '41-60': 0, '61-80': 0, '80+': 0};
+            patients.forEach(p => {
+                const age = parseInt(p.age);
+                if (age <= 20) ageRanges['0-20']++;
+                else if (age <= 40) ageRanges['21-40']++;
+                else if (age <= 60) ageRanges['41-60']++;
+                else if (age <= 80) ageRanges['61-80']++;
+                else ageRanges['80+']++;
+            });
+            
+            charts.age = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(ageRanges),
+                    datasets: [{
+                        label: 'Nombre de patients',
+                        data: Object.values(ageRanges),
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Indications
+        function createIndicationChart() {
+            const ctx = document.getElementById('indication-chart');
+            if (charts.indication) charts.indication.destroy();
+            
+            const indications = {
+                'Masse médiastinale': 0,
+                'Lymphadénopathie': 0,
+                'Nodule thyroïdien': 0,
+                'Lésion surrénalienne': 0,
+                'Autre': 0
+            };
+            
+            patients.forEach(p => {
+                if (p.indication_mediastinalMass) indications['Masse médiastinale']++;
+                if (p.indication_lymphadenopathy) indications['Lymphadénopathie']++;
+                if (p.indication_thyroidNodule) indications['Nodule thyroïdien']++;
+                if (p.indication_adrenalLesion) indications['Lésion surrénalienne']++;
+                if (p.indication_other) indications['Autre']++;
+            });
+            
+            charts.indication = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(indications),
+                    datasets: [{
+                        label: 'Nombre de cas',
+                        data: Object.values(indications),
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Procédure
+        function createProcedureChart() {
+            const ctx = document.getElementById('procedure-chart');
+            if (charts.procedure) charts.procedure.destroy();
+            
+            const procedureCounts = patients.reduce((acc, p) => {
+                acc[p.procedureType || 'Non spécifié'] = (acc[p.procedureType || 'Non spécifié'] || 0) + 1;
+                return acc;
+            }, {});
+            
+            charts.procedure = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(procedureCounts),
+                    datasets: [{
+                        data: Object.values(procedureCounts),
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Calibre d'aiguille
+        function createNeedleGaugeChart() {
+            const ctx = document.getElementById('needle-gauge-chart');
+            if (charts.needleGauge) charts.needleGauge.destroy();
+            
+            const gaugeCounts = patients.reduce((acc, p) => {
+                acc[p.needleGauge || 'Non spécifié'] = (acc[p.needleGauge || 'Non spécifié'] || 0) + 1;
+                return acc;
+            }, {});
+            
+            charts.needleGauge = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(gaugeCounts),
+                    datasets: [{
+                        data: Object.values(gaugeCounts),
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Adéquation de l'échantillon
+        function createSampleAdequacyChart() {
+            const ctx = document.getElementById('sample-adequacy-chart');
+            if (charts.sampleAdequacy) charts.sampleAdequacy.destroy();
+            
+            const adequacyCounts = patients.reduce((acc, p) => {
+                acc[p.sampleAdequacy || 'Non spécifié'] = (acc[p.sampleAdequacy || 'Non spécifié'] || 0) + 1;
+                return acc;
+            }, {});
+            
+            charts.sampleAdequacy = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(adequacyCounts),
+                    datasets: [{
+                        label: 'Nombre de cas',
+                        data: Object.values(adequacyCounts),
+                        backgroundColor: ['#43e97b', '#f093fb', '#fa709a']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Taille des lésions
+        function createLesionSizeChart() {
+            const ctx = document.getElementById('lesion-size-chart');
+            if (charts.lesionSize) charts.lesionSize.destroy();
+            
+            const sizes = patients.map(p => parseFloat(p.lesionSize)).filter(s => !isNaN(s));
+            
+            const sizeRanges = {'0-10': 0, '11-20': 0, '21-30': 0, '31-40': 0, '40+': 0};
+            sizes.forEach(size => {
+                if (size <= 10) sizeRanges['0-10']++;
+                else if (size <= 20) sizeRanges['11-20']++;
+                else if (size <= 30) sizeRanges['21-30']++;
+                else if (size <= 40) sizeRanges['31-40']++;
+                else sizeRanges['40+']++;
+            });
+            
+            charts.lesionSize = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(sizeRanges),
+                    datasets: [{
+                        label: 'Nombre de lésions',
+                        data: Object.values(sizeRanges),
+                        backgroundColor: '#764ba2'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Taille (mm)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Graphique Complications
+        function createComplicationsChart() {
+            const ctx = document.getElementById('complications-chart');
+            if (charts.complications) charts.complications.destroy();
+            
+            const complicationTypes = {
+                'Aucune': 0,
+                'Saignement': 0,
+                'Perforation': 0,
+                'Douleur': 0,
+                'Autre': 0
+            };
+            
+            patients.forEach(p => {
+                const comp = p.immediateComplications || 'Aucune';
+                if (comp.toLowerCase().includes('aucune') || comp.toLowerCase().includes('none') || comp === '') {
+                    complicationTypes['Aucune']++;
+                } else if (comp.toLowerCase().includes('saignement') || comp.toLowerCase().includes('bleeding')) {
+                    complicationTypes['Saignement']++;
+                } else if (comp.toLowerCase().includes('perforation')) {
+                    complicationTypes['Perforation']++;
+                } else if (comp.toLowerCase().includes('douleur') || comp.toLowerCase().includes('pain')) {
+                    complicationTypes['Douleur']++;
+                } else {
+                    complicationTypes['Autre']++;
+                }
+            });
+            
+            charts.complications = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(complicationTypes),
+                    datasets: [{
+                        data: Object.values(complicationTypes),
+                        backgroundColor: ['#43e97b', '#fa709a', '#fee140', '#30cfd0', '#a8edea']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
